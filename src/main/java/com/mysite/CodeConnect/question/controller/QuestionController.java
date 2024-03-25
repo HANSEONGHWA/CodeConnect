@@ -1,42 +1,66 @@
-package com.mysite.sbb.question;
+package com.mysite.CodeConnect.question.controller;
 
-import com.mysite.sbb.answer.AnswerForm;
-import com.mysite.sbb.entity.Question;
-import com.mysite.sbb.entity.SiteUser;
-import com.mysite.sbb.user.UserService;
+import com.mysite.CodeConnect.answer.AnswerForm;
+import com.mysite.CodeConnect.entity.Question;
+import com.mysite.CodeConnect.entity.SiteUser;
+import com.mysite.CodeConnect.question.QuestionForm;
+import com.mysite.CodeConnect.question.QuestionService;
+import com.mysite.CodeConnect.question.dto.MainResponse;
+import com.mysite.CodeConnect.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.security.Principal;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/question")
 public class QuestionController {
 
     private final QuestionService questionService;
     private final UserService userService;
 
+    /**
+     * 메인 페이지 로드 시 .페이징 기능, 조회기능
+     * @param model
+     * @param page
+     * @return
+     */
+//    @GetMapping("/list")
+//    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+//        Page<Question> paging = questionService.getList(page);
+//        model.addAttribute("paging", paging);
+//        return "question_list";
+//    }
+
+    /**
+     * 메인 페이지 로드 시 .페이징 기능, 조회기능 -> restApi로 변경
+     * @param page
+     * @return
+     */
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-        Page<Question> paging = questionService.getList(page);
-        model.addAttribute("paging", paging);
-        return "question_list";
+    public ResponseEntity<Page<MainResponse>> list(@RequestParam(value = "page", defaultValue = "0") int page) {
+        Page<MainResponse> list = questionService.getList(page);
+       log.info("list={}", list);
+        return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping("/")
-    public String root() {
-        return "redirect:/question/list";
-    }
-
+    /**
+     * 상세페이지  확인
+     * @param model
+     * @param id
+     * @param answerForm
+     * @return
+     */
     @GetMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
         Question question = this.questionService.getQuestion(id);
@@ -44,12 +68,24 @@ public class QuestionController {
         return "question_detail";
     }
 
+    /**
+     * 질문 등록 페이지 이동
+     * @param questionForm
+     * @return
+     */
     @PreAuthorize("isAuthenticated()") // 로그인이 필요한 메서드 의미-> 로그인페이지로 이동
     @GetMapping("/create")
     public String questionCreate(QuestionForm questionForm) {
         return "question_form";
     }
 
+    /**
+     * 질문 등록 -> 글 작성으로 변경
+     * @param questionForm
+     * @param bindingResult
+     * @param principal
+     * @return
+     */
     @PostMapping("/create")
     @PreAuthorize("isAuthenticated()")
     public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) {
