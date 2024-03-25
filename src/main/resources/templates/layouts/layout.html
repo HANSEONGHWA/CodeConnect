@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th=layout"http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS,  jquery js-->
+    <link rel="stylesheet" type="text/css" href="/bootstrap.min.css">
+    <script src="/jquery-3.7.1.min.js"></script>
+    <title>Code Connect</title>
+    <link rel="icon" href="/logo.png" type="image/png">
+</head>
+<body>
+<!--네비게이션바-->
+<div th:replace="/fragments/navbar :: navbarFragment"></div>
+<!-- 템플릿 삽입될 내용 Start -->
+<div layout:fragment="content"></div>
+
+<!--bootstrap JS-->
+<script src="bootstrap.min.js"></script>
+<!--자바스크립트 Start-->
+<div layout:fragment="script"></div>
+</body>
+</html>
