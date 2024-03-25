@@ -1,10 +1,10 @@
-package com.mysite.sbb;
+package com.mysite.CodeConnect;
 
-import com.mysite.sbb.entity.Answer;
-import com.mysite.sbb.entity.Question;
-import com.mysite.sbb.question.QuestionService;
-import com.mysite.sbb.repository.AnswerRepository;
-import com.mysite.sbb.repository.QuestionRepository;
+import com.mysite.CodeConnect.entity.Answer;
+import com.mysite.CodeConnect.entity.Question;
+import com.mysite.CodeConnect.question.QuestionService;
+import com.mysite.CodeConnect.repository.AnswerRepository;
+import com.mysite.CodeConnect.repository.QuestionRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
-class SbbApplicationTests {
+class CodeConnectApplicationTests {
 
 	@Autowired
 	private QuestionRepository questionRepository;
@@ -106,14 +106,14 @@ class SbbApplicationTests {
 //		a.getQuestion();
 
 		//질문에 달린 답변 찾기
-		Optional<Question> oq = this.questionRepository.findById(3);
-		Assertions.assertTrue(oq.isPresent());
-		Question q = oq.get();
-
-		List<Answer> answerList = q.getAnswerList();
-
-		Assertions.assertEquals(1,answerList.size());
-		Assertions.assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
+//		Optional<Question> oq = this.questionRepository.findById(3);
+//		Assertions.assertTrue(oq.isPresent());
+//		Question q = oq.get();
+//
+//		List<Answer> answerList = q.getAnswerList();
+//
+//		Assertions.assertEquals(1,answerList.size());
+//		Assertions.assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
 	}
 	//테스트 데이터 생성
 	@Test

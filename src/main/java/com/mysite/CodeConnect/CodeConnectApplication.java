@@ -1,13 +1,13 @@
-package com.mysite.sbb;
+package com.mysite.CodeConnect;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SbbApplication {
+public class CodeConnectApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SbbApplication.class, args);
+		SpringApplication.run(CodeConnectApplication.class, args);
 	}
 
 }

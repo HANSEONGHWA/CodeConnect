@@ -1,6 +1,6 @@
-package com.mysite.sbb.repository;
+package com.mysite.CodeConnect.repository;
 
-import com.mysite.sbb.entity.SiteUser;
+import com.mysite.CodeConnect.entity.SiteUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

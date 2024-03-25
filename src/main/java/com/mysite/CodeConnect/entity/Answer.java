@@ -1,7 +1,8 @@
-package com.mysite.sbb.entity;
+package com.mysite.CodeConnect.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class Answer {
 
     @Id

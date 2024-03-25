@@ -1,8 +1,9 @@
-package com.mysite.sbb.user;
+package com.mysite.CodeConnect.user;
 
-import com.mysite.sbb.DataNotFoundException;
-import com.mysite.sbb.entity.SiteUser;
-import com.mysite.sbb.repository.UserRepository;
+
+import com.mysite.CodeConnect.DataNotFoundException;
+import com.mysite.CodeConnect.entity.SiteUser;
+import com.mysite.CodeConnect.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +17,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public SiteUser create(String username,String password, String email){
+    public SiteUser create(String username, String password, String email){
         SiteUser user = new SiteUser();
         user.setUsername(username);
         user.setEmail(email);

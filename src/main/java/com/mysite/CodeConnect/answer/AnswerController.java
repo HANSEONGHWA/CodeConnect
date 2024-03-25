@@ -1,10 +1,10 @@
-package com.mysite.sbb.answer;
+package com.mysite.CodeConnect.answer;
 
-import com.mysite.sbb.entity.Answer;
-import com.mysite.sbb.entity.SiteUser;
-import com.mysite.sbb.question.QuestionService;
-import com.mysite.sbb.entity.Question;
-import com.mysite.sbb.user.UserService;
+import com.mysite.CodeConnect.entity.Answer;
+import com.mysite.CodeConnect.entity.Question;
+import com.mysite.CodeConnect.entity.SiteUser;
+import com.mysite.CodeConnect.question.QuestionService;
+import com.mysite.CodeConnect.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,5 +1,6 @@
-package com.mysite.sbb.user;
+package com.mysite.CodeConnect.user;
 
+import com.mysite.CodeConnect.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;

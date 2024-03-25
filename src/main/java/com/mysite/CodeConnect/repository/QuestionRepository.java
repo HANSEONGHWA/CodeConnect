@@ -1,6 +1,6 @@
-package com.mysite.sbb.repository;
+package com.mysite.CodeConnect.repository;
 
-import com.mysite.sbb.entity.Question;
+import com.mysite.CodeConnect.entity.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

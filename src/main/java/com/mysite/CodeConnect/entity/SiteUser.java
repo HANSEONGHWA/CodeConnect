@@ -1,4 +1,4 @@
-package com.mysite.sbb.entity;
+package com.mysite.CodeConnect.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

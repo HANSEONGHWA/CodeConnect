@@ -1,7 +1,7 @@
-package com.mysite.sbb.user;
+package com.mysite.CodeConnect.user;
 
-import com.mysite.sbb.entity.SiteUser;
-import com.mysite.sbb.repository.UserRepository;
+import com.mysite.CodeConnect.entity.SiteUser;
+import com.mysite.CodeConnect.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
