@@ -1,6 +1,7 @@
 package com.example.codeconnect.post.DTO;
 
 import com.example.codeconnect.entity.Post;
+import com.example.codeconnect.post.validation.ValidContactDetails;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@ValidContactDetails
 public class PostRequest {
     @NotBlank(message = "모집구분을 작성해주세요.")
     private String type;
