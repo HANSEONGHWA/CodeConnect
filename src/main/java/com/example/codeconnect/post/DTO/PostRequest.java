@@ -9,6 +9,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,12 +27,12 @@ public class PostRequest {
     @NotBlank(message = "진행기간을 작성해주세요.")
     private String period;
     @NotBlank(message = "기술스택을 작성해주세요.")
-    private String techStack;
+    private List<String> techStack;
     @NotNull(message = "모집마감일을 작성해주세요.")
     @JsonFormat(pattern = "yyyyMMdd")
     private LocalDate deadline;
     @NotBlank(message = "모집포지션을 작성해주세요.")
-    private String position;
+    private List<String> position;
     @NotBlank(message = "연락방법을 작성해주세요.")
     private String contactMethod;
     @NotBlank(message = "링크/메일주소를 작성해주세요.")

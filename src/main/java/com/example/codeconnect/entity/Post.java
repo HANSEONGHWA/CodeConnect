@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,11 +30,13 @@ public class Post {
 
     private String period;
 
-    private String techStack;
+    @ElementCollection
+    private List<String> techStack;
 
     private LocalDate deadline;
 
-    private String position;
+    @ElementCollection
+    private List<String> position;
 
     private String contactMethod;
 
