@@ -31,15 +31,15 @@ class PostControllerTest {
     void postCreate() throws Exception {
 
         PostRequest request = PostRequest.builder()
-                .type("스터디")
+                .type("type")
                 .size("2")
-                .processType("오프라인")
+                .processType("processType")
                 .period("period")
                 .techStack("techStack")
                 .deadline(LocalDate.of(2024,6, 20))
                 .position("position")
-                .contactMethod("contactMethod")
-                .contactDetails("contactDetails")
+                .contactMethod("이메일")
+                .contactDetails("asas@naver.com")
                 .title("title")
                 .description("description")
                 .build();
@@ -57,15 +57,15 @@ class PostControllerTest {
     void postCreateBadRequest() throws Exception {
 
         PostRequest request = PostRequest.builder()
-                .type("스터디")
-                .size("2")
+                .type("type")
+                .size("size")
                 .processType("")
                 .period("period")
-                .techStack("techStack")
+                .techStack("")
                 .deadline(LocalDate.of(2024,6, 20))
-                .position("position")
-                .contactMethod("")
-                .contactDetails("contactDetails")
+                .position("")
+                .contactMethod("이메일")
+                .contactDetails("asas@naver.com")
                 .title("title")
                 .description("description")
                 .build();
@@ -83,15 +83,15 @@ class PostControllerTest {
     void postCreateDeadline() throws Exception {
 
         PostRequest request = PostRequest.builder()
-                .type("스터디")
+                .type("type")
                 .size("2")
                 .processType("processType")
                 .period("period")
                 .techStack("techStack")
                 .deadline(LocalDate.of(2024,6, 6))
                 .position("position")
-                .contactMethod("contactMethod")
-                .contactDetails("contactDetails")
+                .contactMethod("이메일")
+                .contactDetails("asas@naver.com")
                 .title("title")
                 .description("description")
                 .build();
