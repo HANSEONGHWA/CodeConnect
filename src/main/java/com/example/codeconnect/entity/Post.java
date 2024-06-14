@@ -26,20 +26,28 @@ public class Post {
 
     private String size;
 
+    @Column(name = "process_type")
     private String processType;
 
     private String period;
 
-    @ElementCollection
-    private List<String> techStack;
+    @ElementCollection(targetClass = TechStack.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "post_tech_stack", joinColumns = @JoinColumn(name = "post_id"))
+    @Column(name = "tech_stack")
+    private List<TechStack> techStack;
 
     private LocalDate deadline;
 
-    @ElementCollection
-    private List<String> position;
+    @ElementCollection(targetClass = Position.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "post_position", joinColumns = @JoinColumn(name = "post_id"))
+    private List<Position> position;
 
+    @Column(name = "contact_method")
     private String contactMethod;
 
+    @Column(name = "contact_details")
     private String contactDetails;
 
     private String title;
@@ -47,7 +55,9 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "create_date")
     private LocalDateTime createDate;
 
+    @Column(name = "modify_date")
     private LocalDateTime modifyDate;
 }
