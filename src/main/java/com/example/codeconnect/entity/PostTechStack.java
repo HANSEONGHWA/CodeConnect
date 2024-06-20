@@ -5,13 +5,18 @@ import lombok.*;
 
 @Entity
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class Position {
+@AllArgsConstructor
+@Builder
+public class PostTechStack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String position;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+    private String techStacks;
+
 }

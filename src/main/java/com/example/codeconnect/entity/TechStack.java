@@ -1,6 +1,18 @@
 package com.example.codeconnect.entity;
 
-public enum TechStack {
-    JAVA, Spring, NodeJs, JavaScript, TypeScript, React, Vue, NextJs, Express, Go, C,
-    Django, Python, Swift, Kotlin, PHP, MySql, MongoDB, GraphQL, NestJs, ReactNative, AWS, Docker, Git, Figma
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class TechStack {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String techStack;
 }

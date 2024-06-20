@@ -1,22 +1,19 @@
 package com.example.codeconnect.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EntityListeners(AuditingEntityListener.class)
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,18 +28,13 @@ public class Post {
 
     private String period;
 
-    @ElementCollection(targetClass = TechStack.class)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "post_tech_stack", joinColumns = @JoinColumn(name = "post_id"))
-    @Column(name = "tech_stack")
-    private List<TechStack> techStack;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostTechStack> techStacks = new ArrayList<>();
 
     private LocalDate deadline;
 
-    @ElementCollection(targetClass = Position.class)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "post_position", joinColumns = @JoinColumn(name = "post_id"))
-    private List<Position> position;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostPosition> positions = new ArrayList<>();
 
     @Column(name = "contact_method")
     private String contactMethod;
