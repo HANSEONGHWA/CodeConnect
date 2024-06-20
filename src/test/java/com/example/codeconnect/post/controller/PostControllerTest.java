@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -35,9 +36,9 @@ class PostControllerTest {
                 .size("2")
                 .processType("processType")
                 .period("period")
-                .techStack("techStack")
-                .deadline(LocalDate.of(2024,6, 20))
-                .position("position")
+                .techStack(List.of("Java", "Spring"))
+                .deadline(LocalDate.of(9999, 1, 1))
+                .position(List.of("백엔드", "프론트엔드"))
                 .contactMethod("이메일")
                 .contactDetails("asas@naver.com")
                 .title("title")
@@ -57,17 +58,17 @@ class PostControllerTest {
     void postCreateBadRequest() throws Exception {
 
         PostRequest request = PostRequest.builder()
-                .type("type")
-                .size("size")
+                .type("")
+                .size("")
                 .processType("")
-                .period("period")
-                .techStack("")
-                .deadline(LocalDate.of(2024,6, 20))
-                .position("")
-                .contactMethod("이메일")
-                .contactDetails("asas@naver.com")
-                .title("title")
-                .description("description")
+                .period("")
+                .techStack(List.of())
+                .deadline(null)
+                .position(List.of())
+                .contactMethod("")
+                .contactDetails("")
+                .title("")
+                .description("")
                 .build();
 
 
@@ -87,9 +88,9 @@ class PostControllerTest {
                 .size("2")
                 .processType("processType")
                 .period("period")
-                .techStack("techStack")
-                .deadline(LocalDate.of(2024,6, 6))
-                .position("position")
+                .techStack(List.of("Java", "Spring"))
+                .deadline(LocalDate.of(2024, 1, 1))
+                .position(List.of("백엔드", "프론트엔드"))
                 .contactMethod("이메일")
                 .contactDetails("asas@naver.com")
                 .title("title")
