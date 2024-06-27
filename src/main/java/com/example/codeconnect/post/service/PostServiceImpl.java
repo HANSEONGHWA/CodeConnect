@@ -4,10 +4,14 @@ import com.example.codeconnect.entity.*;
 import com.example.codeconnect.exception.DataNotFoundException;
 import com.example.codeconnect.post.DTO.PostRequest;
 import com.example.codeconnect.post.DTO.PostResponse;
+import com.example.codeconnect.post.DTO.PostResponseList;
 import com.example.codeconnect.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -34,5 +38,16 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository.findById(id).orElseThrow(() -> new DataNotFoundException("요청한 데이터를 찾을 수 없습니다."));
         return PostResponse.fromEntity(post);
     }
+
+    /**
+     * post 전체 조회
+     * @return List<PostResponseList> 객체
+     */
+    @Override
+    public List<PostResponseList> findAll() {
+        List<Post> postList = postRepository.findAll();
+        return postList.stream().map(PostResponseList::fromEntity).collect(Collectors.toList());
+    }
+
 }
 

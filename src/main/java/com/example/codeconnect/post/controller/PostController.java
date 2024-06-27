@@ -2,6 +2,7 @@ package com.example.codeconnect.post.controller;
 
 import com.example.codeconnect.post.DTO.PostRequest;
 import com.example.codeconnect.post.DTO.PostResponse;
+import com.example.codeconnect.post.DTO.PostResponseList;
 import com.example.codeconnect.post.service.PostServiceImpl;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -26,7 +28,8 @@ public class PostController {
 
     /**
      * 게시글 등록
-     * @param postRequest @Valid를 이용한 유효성 검사
+     *
+     * @param postRequest   @Valid를 이용한 유효성 검사
      * @param bindingResult BindingResult를 이용한 에러 처리
      * @return 검증 및 전송 결과
      */
@@ -38,12 +41,12 @@ public class PostController {
                     .map(ObjectError::getDefaultMessage)
                     .collect(Collectors.joining());
             log.info("error={}", errorMassages);
-            log.info("bindingResult={}",bindingResult);
+            log.info("bindingResult={}", bindingResult);
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("에러메세지: " + errorMassages);
         }
         LocalDate today = LocalDate.now();
-        if (postRequest.getDeadline().isBefore(today) || postRequest.getDeadline().isEqual(today)){
+        if (postRequest.getDeadline().isBefore(today) || postRequest.getDeadline().isEqual(today)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("모집 마감일을 확인해주세요.");
         }
         postService.postCreate(postRequest);
@@ -52,12 +55,23 @@ public class PostController {
 
     /**
      * id에 해당하는 Post 조회
+     *
      * @param id 조회할 Post id
      * @return HttpStatus.OK 및 조회된 PostResponse 객체
      */
     @GetMapping("/{id}")
-    public ResponseEntity<PostResponse> getPost(@PathVariable("id") Long id){
+    public ResponseEntity<PostResponse> getPost(@PathVariable("id") Long id) {
         PostResponse postResponse = postService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(postResponse);
+    }
+
+    /**
+     * post 전체 조회
+     * @return 성공 시 HttpStatus.OK 및 List<PostResponseList> 객체
+     */
+    @GetMapping
+    public ResponseEntity<List<PostResponseList>> getAllPost(){
+        List<PostResponseList> postResponseList = postService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(postResponseList);
     }
 }
