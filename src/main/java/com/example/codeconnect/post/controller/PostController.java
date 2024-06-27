@@ -1,6 +1,7 @@
 package com.example.codeconnect.post.controller;
 
 import com.example.codeconnect.post.DTO.PostRequest;
+import com.example.codeconnect.post.DTO.PostResponse;
 import com.example.codeconnect.post.service.PostServiceImpl;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @Slf4j
+@RequestMapping("/api/posts")
 
 public class PostController {
 
@@ -28,7 +30,7 @@ public class PostController {
      * @param bindingResult BindingResult를 이용한 에러 처리
      * @return 검증 및 전송 결과
      */
-    @PostMapping("/api/posts")
+    @PostMapping
     public ResponseEntity<String> postCreate(@Valid @RequestBody PostRequest postRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String errorMassages = bindingResult.getAllErrors()
@@ -46,5 +48,16 @@ public class PostController {
         }
         postService.postCreate(postRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body("성공적으로 저장했습니다.");
+    }
+
+    /**
+     * id에 해당하는 Post 조회
+     * @param id 조회할 Post id
+     * @return HttpStatus.OK 및 조회된 PostResponse 객체
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<PostResponse> getPost(@PathVariable("id") Long id){
+        PostResponse postResponse = postService.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(postResponse);
     }
 }
