@@ -7,6 +7,7 @@ import com.example.codeconnect.post.service.PostServiceImpl;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -14,7 +15,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -67,11 +67,12 @@ public class PostController {
 
     /**
      * post 전체 조회
-     * @return 성공 시 HttpStatus.OK 및 List<PostResponseList> 객체
+     *
+     * @return 성공 시 HttpStatus.OK 및 Page<PostResponseList> 객체
      */
     @GetMapping
-    public ResponseEntity<List<PostResponseList>> getAllPost(){
-        List<PostResponseList> postResponseList = postService.findAll();
+    public ResponseEntity<Page<PostResponseList>> getAllPost(@RequestParam("page") int page) {
+        Page<PostResponseList> postResponseList = postService.findAll(page);
         return ResponseEntity.status(HttpStatus.OK).body(postResponseList);
     }
 }

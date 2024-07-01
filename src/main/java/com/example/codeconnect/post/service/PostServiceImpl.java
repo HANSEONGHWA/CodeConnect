@@ -8,10 +8,10 @@ import com.example.codeconnect.post.DTO.PostResponseList;
 import com.example.codeconnect.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -29,6 +29,7 @@ public class PostServiceImpl implements PostService {
 
     /**
      * id에 해당하는 Post 조회
+     *
      * @param id 조회할 Post id
      * @return PostResponse 객체
      * @throws DataNotFoundException 요청한 데이터가 없는 경우 발생
@@ -41,13 +42,17 @@ public class PostServiceImpl implements PostService {
 
     /**
      * post 전체 조회
-     * @return List<PostResponseList> 객체
+     *
+     * @return Page<PostResponseList> 객체
+     * @throws DataNotFoundException 요청한 페이지 없는 경우 발생
      */
     @Override
-    public List<PostResponseList> findAll() {
-        List<Post> postList = postRepository.findAll();
-        return postList.stream().map(PostResponseList::fromEntity).collect(Collectors.toList());
+    public Page<PostResponseList> findAll(int page) {
+        PageRequest pageRequest = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.DESC, "createDate"));
+        Page<Post> postList = postRepository.findAll(pageRequest);
+        if (postList.isEmpty()) {
+            throw new DataNotFoundException("페이지를 다시 입력해주세요.");
+        }
+        return postList.map(PostResponseList::fromEntity);
     }
-
 }
-
