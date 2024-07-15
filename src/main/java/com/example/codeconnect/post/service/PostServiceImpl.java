@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -41,18 +43,21 @@ public class PostServiceImpl implements PostService {
     }
 
     /**
-     * post 전체 조회
-     *
+     * post List 조회 및 페이징, 검색 조회
+     * @param page 조회 페이지 번호
+     * @param type
+     * @param techStack
+     * @param position
      * @return Page<PostResponseList> 객체
-     * @throws DataNotFoundException 요청한 페이지 없는 경우 발생
+     * @throws DataNotFoundException 조회 데이터가 없는 경우 발생
      */
     @Override
-    public Page<PostResponseList> findAll(int page) {
-        PageRequest pageRequest = PageRequest.of(page - 1, 10, Sort.by(Sort.Direction.DESC, "createDate"));
-        Page<Post> postList = postRepository.findAll(pageRequest);
-        if (postList.isEmpty()) {
-            throw new DataNotFoundException("페이지를 다시 입력해주세요.");
+    public Page<PostResponseList> findPostList(int page, String type, String techStack, List<String> position) {
+        PageRequest pageRequest = PageRequest.of(page - 1, 3, Sort.by(Sort.Direction.DESC, "createDate"));
+        try {
+            return postRepository.searchPosts(type, techStack, position, pageRequest);
+        } catch (Exception e) {
+            throw new DataNotFoundException("조회 데이터가 없습니다.");
         }
-        return postList.map(PostResponseList::fromEntity);
     }
 }

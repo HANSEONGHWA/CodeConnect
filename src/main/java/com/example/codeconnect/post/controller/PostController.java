@@ -15,6 +15,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -66,13 +67,13 @@ public class PostController {
     }
 
     /**
-     * post 전체 조회
+     * post 전체 조회 및 페이징, 검색 조회
      *
      * @return 성공 시 HttpStatus.OK 및 Page<PostResponseList> 객체
      */
     @GetMapping
-    public ResponseEntity<Page<PostResponseList>> getAllPost(@RequestParam("page") int page) {
-        Page<PostResponseList> postResponseList = postService.findAll(page);
+    public ResponseEntity<Page<PostResponseList>> getPostList(@RequestParam("page") int page, @RequestParam(value = "type", required = false) String type, @RequestParam(value = "techStack", required = false) String techStack, @RequestParam(value = "position", required = false) List<String> position) {
+        Page<PostResponseList> postResponseList = postService.findPostList(page, type,techStack, position);
         return ResponseEntity.status(HttpStatus.OK).body(postResponseList);
     }
 }
