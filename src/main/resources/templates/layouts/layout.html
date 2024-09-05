@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Code Connect</title>
+    <link rel="icon" href="/common/img/logo.png" type="image/png">
+
+    <!-- jquery-->
+    <script src="/common/js/jquery-3.7.1.min.js"></script>
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/common/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/common/css/bootstrap.min.css">
+    <script src="/common/js/bootstrap.min.js"></script>
+
+    <!--select2-->
+    <link rel="stylesheet" type="text/css" href="/common/css/select2.min.css">
+    <script src="/common/js/select2.min.js"></script>
+
+    <!--각 페이지 자바스크립트-->
+    <th:block layout:fragment="script"></th:block>
+
+
+</head>
+
+<body>
+
+<div th:replace="~{fragments/header::header}"></div>
+<div layout:fragment="content"></div>
+
+</body>
+</html>

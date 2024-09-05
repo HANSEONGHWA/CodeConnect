@@ -1,0 +1,174 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<div layout:fragment="content" class="container my-3">
+
+
+    <form id="postForm" method="post">
+        <div class="row justify-content-center mt-3 mb-3">
+            <div class="col-5">
+                <label for="type" class="form-label">모집 구분</label>
+                <select class="form-select" id="type" required>
+                    <option value=""></option>
+                    <option value="스터디">스터디</option>
+                    <option value="프로젝트">프로젝트</option>
+                </select>
+            </div>
+
+            <div class="col-5">
+                <label for="size" class="form-label">모집 인원</label>
+                <select class="form-select" aria-label="Default select example" id="size" required>
+                    <option value=""></option>
+                    <option value="1">1명</option>
+                    <option value="2">2명</option>
+                    <option value="3">3명</option>
+                    <option value="4">4명</option>
+                    <option value="5">5명 이상</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-3 mb-3">
+            <div class="col-5">
+                <label for="processType" class="form-label">진행 방식</label>
+                <select class="form-select" aria-label="Default select example" id="processType"
+                        required>
+                    <option value=""></option>
+                    <option value="온라인">온라인</option>
+                    <option value="오프라인">오프라인</option>
+                </select>
+            </div>
+
+            <div class="col-5">
+                <label for="period" class="form-label">진행 기간</label>
+                <select class="form-select" aria-label="Default select example" id="period" required>
+                    <option value=""></option>
+                    <option value="1">1개월</option>
+                    <option value="2">2개월</option>
+                    <option value="3">3개월</option>
+                    <option value="4">4개월</option>
+                    <option value="5">5개월</option>
+                    <option value="6">6개월</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-3 mb-3">
+            <div class="col-5">
+                <label for="techStack" class="form-label">기술 스택</label>
+                <select class="form-select" aria-label="Default select example" id="techStack"
+                        multiple="multiple" required>
+                    <option value="java">java</option>
+                    <option value="spring">spring</option>
+                    <option value="nodeJs">nodeJs</option>
+                    <option value="vueJs">vueJs</option>
+                    <option value="react">react</option>
+                    <option value="Express">Express</option>
+                    <option value="typeScript">typeScript</option>
+                    <option value="git">git</option>
+                    <option value="nextJs">nextJs</option>
+                </select>
+            </div>
+
+            <div class="col-5">
+                <label for="position" class="form-label">모집 포지션</label>
+                <select class="form-select" aria-label="Default select example" id="position"
+                        multiple="multiple" required>
+                    <option value="전체">전체</option>
+                    <option value="백엔드">백엔드</option>
+                    <option value="프론트엔드">프론트엔드</option>
+                    <option value="안드로이드">안드로이드</option>
+                    <option value="IOS">IOS</option>
+                    <option value="데브옵스">데브옵스</option>
+                    <option value="디자이너">디자이너</option>
+                    <option value="기획자">기획자</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-3 mb-3">
+            <div class="col-5">
+                <label for="deadline" class="form-label">모집 마감일</label>
+                <input type="date" class="form-control" id="deadline" required>
+            </div>
+
+            <div class="col-5">
+                <label for="contactMethod" class="form-label">연락 방법</label>
+                <select class="form-select" aria-label="Default select example" id="contactMethod"
+                        required>
+                    <option value=""></option>
+                    <option value="오픈톡">오픈톡</option>
+                    <option value="이메일">이메일</option>
+                </select>
+                <input type="text" class="form-control" id="contactDetails" placeholder="이메일/오픈톡 링크를 입력해주세요." required>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-3 mb-3">
+            <div class="col-10">
+                <label for="title" class="form-label">제목</label>
+                <input type="text" class="form-control" placeholder="제목을 입력해주세요." id="title"
+                       required>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-3 mb-3">
+            <div class="col-10">
+                <label for="description" class="form-label">내용</label>
+                <textarea type="text" class="form-control" rows="15" placeholder="내용을 입력해주세요."
+                          id="description" required></textarea>
+            </div>
+        </div>
+        <div class="col-11 text-end" id="btn">
+            <input type="submit" value="저장하기" class="btn btn-outline-primary my-4" id="create">
+        </div>
+    </form>
+</div>
+
+<th:block layout:fragment="script">
+    <script>
+        $(document).ready(function () {
+            $('#techStack').select2();
+            $('#position').select2();
+
+
+            $("#postForm").submit(function (event) { // form 전송 이벤트 처리
+                event.preventDefault(); // 폼의 기본 동작을 중지. 이 경우에는 페이지가 새로고침되지 않도록 방지.
+
+                const formData = {
+                    type: $("#type").val(),
+                    size: $("#size").val(),
+                    processType: $("#processType").val(),
+                    period: $("#period").val(),
+                    techStack: $("#techStack").select2('val'),
+                    deadline: $("#deadline").val(),
+                    position: $("#position").select2('val'),
+                    contactMethod: $("#contactMethod").val(),
+                    contactDetails:$("#contactDetails").val(),
+                    title: $("#title").val(),
+                    description: $("#description").val()
+                };
+                console.log(formData);
+
+                $.ajax({
+                    url: "/api/posts",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        if (response) {
+                            alert("저장되었습니다.");
+                            location.replace("/")
+                        }
+                    },
+                    error: function (xhr) {
+                        alert(xhr.responseText);
+                        console.error("xhr.responseText", xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</th:block>
+</html>
+
