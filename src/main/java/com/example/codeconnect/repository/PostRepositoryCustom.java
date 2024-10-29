@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface PostRepositoryCustom {
-    Page<PostResponseList> searchPosts(String type, String techStack, List<String> Positions, Pageable pageable);
+    Page<PostResponseList> searchPosts(String type, List<String> techStack, List<String> Positions, Pageable pageable);
 }
