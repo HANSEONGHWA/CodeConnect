@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @AllArgsConstructor
 @Slf4j
 @RequestMapping("/api/posts")
@@ -27,6 +28,7 @@ public class PostController {
 
     private final PostServiceImpl postService;
 
+
     /**
      * 게시글 등록
      *
@@ -34,8 +36,10 @@ public class PostController {
      * @param bindingResult BindingResult를 이용한 에러 처리
      * @return 검증 및 전송 결과
      */
+
     @PostMapping
     public ResponseEntity<String> postCreate(@Valid @RequestBody PostRequest postRequest, BindingResult bindingResult) {
+        log.info("postRequest={}", postRequest);
         if (bindingResult.hasErrors()) {
             String errorMassages = bindingResult.getAllErrors()
                     .stream()
@@ -44,7 +48,7 @@ public class PostController {
             log.info("error={}", errorMassages);
             log.info("bindingResult={}", bindingResult);
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("에러메세지: " + errorMassages);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMassages);
         }
         LocalDate today = LocalDate.now();
         if (postRequest.getDeadline().isBefore(today) || postRequest.getDeadline().isEqual(today)) {
@@ -67,13 +71,31 @@ public class PostController {
     }
 
     /**
-     * post 전체 조회 및 페이징, 검색 조회
+     * post 전체 조회 및 페이징
      *
      * @return 성공 시 HttpStatus.OK 및 Page<PostResponseList> 객체
      */
     @GetMapping
-    public ResponseEntity<Page<PostResponseList>> getPostList(@RequestParam("page") int page, @RequestParam(value = "type", required = false) String type, @RequestParam(value = "techStack", required = false) String techStack, @RequestParam(value = "position", required = false) List<String> position) {
-        Page<PostResponseList> postResponseList = postService.findPostList(page, type,techStack, position);
+    public ResponseEntity<Page<PostResponseList>> getPostList(@RequestParam(value = "page", defaultValue = "0") int page) {
+        Page<PostResponseList> postResponseList = postService.findAll(page);
+        return ResponseEntity.status(HttpStatus.OK).body(postResponseList);
+    }
+
+    /**
+     * post 전체 조회 및 페이징, 검색 조회
+     * @param page
+     * @param type
+     * @param techStack
+     * @param position
+     * @return
+     */
+    @GetMapping
+    public ResponseEntity<Page<PostResponseList>> getPostList(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                              @RequestParam(value = "type", required = false) String type,
+                                                              @RequestParam(value = "techStack", required = false) List<String> techStack,
+                                                              @RequestParam(value = "position", required = false) List<String> position) {
+        Page<PostResponseList> postResponseList = postService.findPostSearch(page, type, techStack, position);
+        System.out.println(postResponseList);
         return ResponseEntity.status(HttpStatus.OK).body(postResponseList);
     }
 }

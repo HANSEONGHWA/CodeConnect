@@ -12,5 +12,7 @@ public interface PostService {
 
     PostResponse findById(Long id);
 
-    Page<PostResponseList> findPostList(int page, String type, String techStack, List<String> position);
+    Page<PostResponseList> findAll(int page);
+
+    Page<PostResponseList> findPostSearch(int page, String type, List<String> techStack, List<String> position);
 }

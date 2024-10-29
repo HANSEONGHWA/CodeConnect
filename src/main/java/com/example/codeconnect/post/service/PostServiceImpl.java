@@ -1,6 +1,6 @@
 package com.example.codeconnect.post.service;
 
-import com.example.codeconnect.entity.*;
+import com.example.codeconnect.entity.Post;
 import com.example.codeconnect.exception.DataNotFoundException;
 import com.example.codeconnect.post.DTO.PostRequest;
 import com.example.codeconnect.post.DTO.PostResponse;
@@ -52,12 +52,23 @@ public class PostServiceImpl implements PostService {
      * @throws DataNotFoundException 조회 데이터가 없는 경우 발생
      */
     @Override
-    public Page<PostResponseList> findPostList(int page, String type, String techStack, List<String> position) {
-        PageRequest pageRequest = PageRequest.of(page - 1, 3, Sort.by(Sort.Direction.DESC, "createDate"));
-        try {
-            return postRepository.searchPosts(type, techStack, position, pageRequest);
-        } catch (Exception e) {
-            throw new DataNotFoundException("조회 데이터가 없습니다.");
+    public Page<PostResponseList> findPostSearch(int page, String type, List<String> techStack, List<String> position) {
+        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createDate"));
+        Page<PostResponseList> posts  = postRepository.searchPosts(type, techStack, position, pageRequest);
+       if (posts.isEmpty()) {
+           throw new DataNotFoundException("조회 데이터가 없습니다.");
+       }
+        return posts;
+    }
+
+    @Override
+    public Page<PostResponseList> findAll(int page) {
+        log.info("page={}", page);
+        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createDate"));
+        Page<Post> postList = postRepository.findAll(pageRequest);
+        if (postList.isEmpty()) {
+            throw new DataNotFoundException("페이지를 다시 입력해주세요.");
         }
+        return postList.map(PostResponseList::fromEntity);
     }
 }

@@ -33,7 +33,7 @@ public class PostRequest {
     @NotEmpty(message = "기술스택을 작성해주세요.")
     private List<String> techStack;
     @NotNull(message = "모집마감일을 작성해주세요.")
-    @JsonFormat(pattern = "yyyyMMdd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline;
     @NotEmpty(message = "모집포지션을 작성해주세요.")
     private List<String> position;
