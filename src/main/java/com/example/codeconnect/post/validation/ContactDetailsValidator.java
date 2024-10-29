@@ -17,7 +17,7 @@ public class ContactDetailsValidator implements ConstraintValidator<ValidContact
         String contactMethod = postRequest.getContactMethod();
         String contactDetails = postRequest.getContactDetails();
 
-        if (postRequest.getContactMethod().equals("카카오톡")){
+        if (postRequest.getContactMethod().equals("오픈톡")){
             return contactDetails.startsWith("https://");
         } else if (contactMethod.equals("이메일")) {
             return contactDetails.matches("^[\\w\\.-]+@[a-zA-Z\\d\\.-]+\\.[a-zA-Z]{2,}$");
