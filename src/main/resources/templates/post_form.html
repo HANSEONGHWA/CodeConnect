@@ -1,12 +1,17 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" href="/common/css/post_form.css">
+</th:block>
+
 <div layout:fragment="content" class="container my-3">
 
 
     <form id="postForm" method="post">
         <div class="row justify-content-center mt-3 mb-3">
-            <div class="col-5">
+            <div class="col-5 box">
                 <label for="type" class="form-label">모집 구분</label>
                 <select class="form-select" id="type" required>
                     <option value=""></option>
@@ -15,7 +20,7 @@
                 </select>
             </div>
 
-            <div class="col-5">
+            <div class="col-5 box">
                 <label for="size" class="form-label">모집 인원</label>
                 <select class="form-select" aria-label="Default select example" id="size" required>
                     <option value=""></option>
@@ -29,7 +34,7 @@
         </div>
 
         <div class="row justify-content-center mt-3 mb-3">
-            <div class="col-5">
+            <div class="col-5 box">
                 <label for="processType" class="form-label">진행 방식</label>
                 <select class="form-select" aria-label="Default select example" id="processType"
                         required>
@@ -39,7 +44,7 @@
                 </select>
             </div>
 
-            <div class="col-5">
+            <div class="col-5 box">
                 <label for="period" class="form-label">진행 기간</label>
                 <select class="form-select" aria-label="Default select example" id="period" required>
                     <option value=""></option>
@@ -54,7 +59,7 @@
         </div>
 
         <div class="row justify-content-center mt-3 mb-3">
-            <div class="col-5">
+            <div class="col-5 box">
                 <label for="techStack" class="form-label">기술 스택</label>
                 <select class="form-select" aria-label="Default select example" id="techStack"
                         multiple="multiple" required>
@@ -70,7 +75,7 @@
                 </select>
             </div>
 
-            <div class="col-5">
+            <div class="col-5 box">
                 <label for="position" class="form-label">모집 포지션</label>
                 <select class="form-select" aria-label="Default select example" id="position"
                         multiple="multiple" required>
@@ -87,12 +92,12 @@
         </div>
 
         <div class="row justify-content-center mt-3 mb-3">
-            <div class="col-5">
+            <div class="col-5 box">
                 <label for="deadline" class="form-label">모집 마감일</label>
                 <input type="date" class="form-control" id="deadline" required>
             </div>
 
-            <div class="col-5">
+            <div class="col-5 box">
                 <label for="contactMethod" class="form-label">연락 방법</label>
                 <select class="form-select" aria-label="Default select example" id="contactMethod"
                         required>
@@ -144,7 +149,7 @@
                     deadline: $("#deadline").val(),
                     position: $("#position").select2('val'),
                     contactMethod: $("#contactMethod").val(),
-                    contactDetails:$("#contactDetails").val(),
+                    contactDetails: $("#contactDetails").val(),
                     title: $("#title").val(),
                     description: $("#description").val()
                 };
