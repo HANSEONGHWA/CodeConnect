@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="/common/css/post_form.css">
 </th:block>
 
+<script layout:fragment="script" type="text/javascript" src="post_form.html"></script>
+
 <div layout:fragment="content" class="container my-3">
-
-
     <form id="postForm" method="post">
         <div class="row justify-content-center mt-3 mb-3">
             <div class="col-5 box">
@@ -129,51 +129,5 @@
         </div>
     </form>
 </div>
-
-<th:block layout:fragment="script">
-    <script>
-        $(document).ready(function () {
-            $('#techStack').select2();
-            $('#position').select2();
-
-
-            $("#postForm").submit(function (event) { // form 전송 이벤트 처리
-                event.preventDefault(); // 폼의 기본 동작을 중지. 이 경우에는 페이지가 새로고침되지 않도록 방지.
-
-                const formData = {
-                    type: $("#type").val(),
-                    size: $("#size").val(),
-                    processType: $("#processType").val(),
-                    period: $("#period").val(),
-                    techStack: $("#techStack").select2('val'),
-                    deadline: $("#deadline").val(),
-                    position: $("#position").select2('val'),
-                    contactMethod: $("#contactMethod").val(),
-                    contactDetails: $("#contactDetails").val(),
-                    title: $("#title").val(),
-                    description: $("#description").val()
-                };
-                console.log(formData);
-
-                $.ajax({
-                    url: "/api/posts",
-                    method: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify(formData),
-                    success: function (response) {
-                        if (response) {
-                            alert("저장되었습니다.");
-                            location.replace("/")
-                        }
-                    },
-                    error: function (xhr) {
-                        alert(xhr.responseText);
-                        console.error("xhr.responseText", xhr.responseText);
-                    }
-                });
-            });
-        });
-    </script>
-</th:block>
 </html>
 
