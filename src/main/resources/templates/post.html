@@ -84,6 +84,10 @@
             let currentPage = 0;
             loadData(currentPage);
 
+            $('.form-select').on('change', function () {
+                loadData(currentPage);
+            });
+
             // 이전 페이지 버튼 클릭 시
             $("#prev_button").click(function () {
                 if (currentPage > 1) {
@@ -101,13 +105,28 @@
 
         // 데이터 요청 및 페이지에 추가
         function loadData(pageNum) {
-            console.log("pageNum", pageNum);
             $.ajax({
                 url: "api/posts",
                 method: "GET",
-                data: {page: pageNum},
+                data: {
+                    page: pageNum,
+                    type: $("#type").val(),
+                    techStack: $("#techStack").val(),
+                    position: $("#position").val(),
+                },
                 contentType: 'application/json',
+                // success: function (data) {
+                //     console.log("AJAX 성공 응답:", data);
                 success: function (data) {
+                    console.log("전송한 데이터:", {
+                        page: pageNum,
+                        type: $("#type").val(),
+                        techStack: $("#techStack").val(),
+                        position: $("#position").val(),
+                    });
+                    console.log("서버 응답 데이터:", data);
+
+
 
                     // 데이터 테이블에(화면) 표시
                     dataList(pageNum, data.content, data.totalElements, data.size);
@@ -171,6 +190,8 @@
                 '<a class="page-link" onclick="loadData(' + (currentPage + 1) + ')" id="next_button">다음</a></li>'
             );
         }
+
+
     </script>
 </div>
 </html>
