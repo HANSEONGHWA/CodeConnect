@@ -75,11 +75,11 @@ public class PostController {
      *
      * @return 성공 시 HttpStatus.OK 및 Page<PostResponseList> 객체
      */
-    @GetMapping
-    public ResponseEntity<Page<PostResponseList>> getPostList(@RequestParam(value = "page", defaultValue = "0") int page) {
-        Page<PostResponseList> postResponseList = postService.findAll(page);
-        return ResponseEntity.status(HttpStatus.OK).body(postResponseList);
-    }
+//    @GetMapping
+//    public ResponseEntity<Page<PostResponseList>> getPostList(@RequestParam(value = "page", defaultValue = "0") int page) {
+//        Page<PostResponseList> postResponseList = postService.findAll(page);
+//        return ResponseEntity.status(HttpStatus.OK).body(postResponseList);
+//    }
 
     /**
      * post 전체 조회 및 페이징, 검색 조회
@@ -87,7 +87,7 @@ public class PostController {
      * @param type
      * @param techStack
      * @param position
-     * @return
+     * @return HttpStatus.OK 및 조회된 PostResponse 객체
      */
     @GetMapping
     public ResponseEntity<Page<PostResponseList>> getPostList(@RequestParam(value = "page", defaultValue = "0") int page,
