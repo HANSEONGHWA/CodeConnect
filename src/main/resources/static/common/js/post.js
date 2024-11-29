@@ -25,6 +25,8 @@ $(document).ready(function () {
 
 // 데이터 요청 및 페이지에 추가
 function loadData(pageNum) {
+
+
     $.ajax({
         url: "api/posts",
         method: "GET",
@@ -55,6 +57,8 @@ function loadData(pageNum) {
         },
         error: function (error) {
             console.log(error);
+            showError();
+
         }
     });
 }
@@ -84,6 +88,15 @@ function dataList(pageNum, data, totalElements, size) {
     });
 }
 
+function showError() {
+    $('#table_body').empty();
+        const tbody = `
+                <tr class="no-data">
+                   <td colspan="5">조회 데이터가 없습니다.</td>
+                </tr>`;
+    $('#table_body').append(tbody);
+}
+
 // 페이지네이션
 function pagination(totalPages, pageNum) {
     let currentPage = pageNum;
@@ -109,3 +122,5 @@ function pagination(totalPages, pageNum) {
         '<a class="page-link" onclick="loadData(' + (currentPage + 1) + ')" id="next_button">다음</a></li>'
     );
 }
+
+
