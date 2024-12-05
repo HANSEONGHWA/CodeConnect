@@ -53,7 +53,7 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public Page<PostResponseList> findPostSearch(int page, String type, List<String> techStack, List<String> position) {
-        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createDate"));
+        PageRequest pageRequest = PageRequest.of(page, 10);
         Page<PostResponseList> posts  = postRepository.searchPosts(type, techStack, position, pageRequest);
        if (posts.isEmpty()) {
            throw new DataNotFoundException("조회 데이터가 없습니다.");

@@ -54,6 +54,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
         //queryFactory 사용하여 Post 엔티티 조회쿼리 실행
         List<Post> posts = queryFactory.selectFrom(post)
                 .where(builder)
+                .orderBy(post.createDate.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
