@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css">
+    <link rel="stylesheet" href="/common/css/post_detail.css">
+</th:block>
+<script layout:fragment="script" type="text/javascript" src="/common/js/post_detail.js"></script>
+
+<div layout:fragment="content" class="container my-3">
+    <div class="post-title">
+    </div>
+    <div class="post-info" >
+        <ul>
+            <li>모집 구분 | <span class="data-type"></span></li>
+            <li>진행 방식 | <span class="data-processType"></span></li>
+            <li>모집 인원 | <span class="data-size"></span>명</li>
+            <li>마감 예정 | <span class="data-deadline"></span></li>
+            <li>연락 방법 | <span class="data-contactMethod"></span></li>
+            <li>예상 기간 | <span class="data-period"></span>개월</li>
+            <li>모집 분야 | <span class="data-position"></span></li>
+            <li>사용 언어 | <span class="data-techStack"></span></li>
+        </ul>
+    </div>
+    <div>
+        <div class="post-section">프로젝트 소개</div>
+        <div class="post-description"></div>
+    </div>
+    <div class="answer-section">
+        <div class="answer-section-subtitle">댓글</div>
+        <textarea class="post-answer" placeholder="댓글을 입력하세요."></textarea>
+        <button type="submit">댓글등록</button>
+    </div>
+</div>
+
+</html>
