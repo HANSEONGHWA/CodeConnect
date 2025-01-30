@@ -50,6 +50,7 @@
     outline: none;
 }
 .post-answer{
+    align-self: center;
     border: 2px solid #e1e1e1;
     border-radius: 16px;
     width: 100%;
@@ -59,7 +60,7 @@
     outline: none;
     resize: none;
 }
-button{
+.btn{
     align-self: flex-end;
     width: 90px;
     height: 30px;
@@ -69,5 +70,15 @@ button{
     font-weight: 700;
     color: #fff;
     font-size: 12px;
-
+}
+.answer-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.answer-list li{
+    border-bottom: 1px solid #bcbebf;
+    margin-bottom: 20px;
+    padding: 20px 0 20px;
+    line-height: 1.5;
 }
