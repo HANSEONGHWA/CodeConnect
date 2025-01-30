@@ -52,4 +52,7 @@ public class Post {
 
     @Column(name = "modify_date")
     private LocalDateTime modifyDate;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Answer> answerList = new ArrayList<>();
 }
