@@ -4,12 +4,14 @@
 <th:block layout:fragment="css">
     <link rel="stylesheet" href="/common/css/post_detail.css">
 </th:block>
-<script layout:fragment="script" type="text/javascript" src="/common/js/post_detail.js"></script>
+<th:block layout:fragment="script">
+    <script type="text/javascript" src="/common/js/post_detail.js"></script>
+</th:block>
 
 <div layout:fragment="content" class="container my-3">
     <div class="post-title">
     </div>
-    <div class="post-info" >
+    <div class="post-info">
         <ul>
             <li>모집 구분 | <span class="data-type"></span></li>
             <li>진행 방식 | <span class="data-processType"></span></li>
@@ -26,9 +28,10 @@
         <div class="post-description"></div>
     </div>
     <div class="answer-section">
-        <div class="answer-section-subtitle">댓글</div>
-        <textarea class="post-answer" placeholder="댓글을 입력하세요."></textarea>
-        <button type="submit">댓글등록</button>
+        <label for="post-answer" class="answer-section-subtitle">댓글</label>
+        <textarea class="post-answer" id="post-answer" placeholder="댓글을 입력하세요."></textarea>
+        <button type="submit" class="btn">댓글등록</button>
+        <ul class="answer-list"></ul>
     </div>
 </div>
 
