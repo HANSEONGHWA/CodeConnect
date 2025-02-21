@@ -54,3 +54,8 @@
     text-align: center;
     font-size: 12px;
 }
+
+#table-body tr {
+    pointer-events: auto;
+    cursor: pointer;
+}
