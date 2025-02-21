@@ -81,4 +81,42 @@
     margin-bottom: 20px;
     padding: 20px 0 20px;
     line-height: 1.5;
+    display: flex;
+    max-width: 1200px;
+    box-sizing: border-box;
+}
+.answer-list li .comment-text{
+    width:89%
+}
+.answer-list li .button-container{
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.answer-list li span button{
+    border: 1px solid #636464;
+    border-radius: 15%;
+    background: none;
+    font-size: 12px;
+    flex-wrap: nowrap;
+    margin: 2px;
+}
+.edit-input{
+    border: 1px solid #636464;
+    background: none;
+    width:89%;
+    padding: 10px;
+    border-radius: 16px;
+    outline: none;
+    resize: none;
+}
+
+.save-btn, .cancel-btn{
+    border: 1px solid #636464;
+    border-radius: 15px;
+    background: none;
+    font-size: 12px;
+
 }
