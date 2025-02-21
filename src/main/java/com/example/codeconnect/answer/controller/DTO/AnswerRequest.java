@@ -16,12 +16,21 @@ public class AnswerRequest {
     private String comment;
 
 
-    public Answer toEntity(){
-        Answer answer = Answer.builder()
+    public Answer toEntity() {
+        return Answer.builder()
                 .comment(comment)
                 .createDate(LocalDateTime.now())
                 .build();
-        return answer;
+    }
+
+    public Answer toEntityForUpdate(Answer answer) {
+        return Answer.builder()
+                .id(answer.getId())
+                .post(answer.getPost())
+                .comment(this.comment)
+                .createDate(answer.getCreateDate())
+                .modifyDate(LocalDateTime.now())
+                .build();
     }
 }
 

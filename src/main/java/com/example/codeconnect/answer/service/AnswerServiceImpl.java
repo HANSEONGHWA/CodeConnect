@@ -38,4 +38,20 @@ public class AnswerServiceImpl implements AnswerService {
 
         return AnswerResponse.fromEntity(saveAnswer);
     }
+
+    /**
+     * 댓글 수정
+     * answerId가 존재하는지 확인 후 존재하지 않는 경우 DataNotFoundException 발생.
+     * answerRequest객체를 toEntityForUpdate()를 통해 Entity로 변환 후 저장.
+     * @param answerId 댓글 Id
+     * @param answerRequest 사용자가 수정한 댓글
+     * @return
+     */
+    @Override
+    public AnswerResponse modifyAnswer(Long answerId, AnswerRequest answerRequest) {
+        Answer answer = answerRepository.findById(answerId).orElseThrow(() -> new DataNotFoundException("해당 댓글이 존재하지 않습니다."));
+        Answer updateAnswer = answerRequest.toEntityForUpdate(answer);
+        Answer saveAnswer = answerRepository.save(updateAnswer);
+        return AnswerResponse.fromEntity(saveAnswer);
+    }
 }
