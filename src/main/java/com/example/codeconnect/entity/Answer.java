@@ -21,6 +21,8 @@ public class Answer {
     @Column(name = "create_date")
     private LocalDateTime createDate;
 
+    @Column(name = "modify_date")
+    private LocalDateTime modifyDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
