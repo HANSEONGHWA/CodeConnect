@@ -23,10 +23,14 @@ $(document).ready(function () {
     });
 });
 
+// 상세페이지로 이동(post_detail.html)
+$(document).on('click', '#table-body tr', function () {
+    const postId = $(this).data('id');
+    window.location.href = `/posts/${postId}`;
+});
+
 // 데이터 요청 및 페이지에 추가
 function loadData(pageNum) {
-
-
     $.ajax({
         url: "api/posts",
         method: "GET",
@@ -37,8 +41,6 @@ function loadData(pageNum) {
             position: $("#position").val(),
         },
         contentType: 'application/json',
-        // success: function (data) {
-        //     console.log("AJAX 성공 응답:", data);
         success: function (data) {
             console.log("전송한 데이터:", {
                 page: pageNum,
@@ -65,12 +67,12 @@ function loadData(pageNum) {
 
 // 테이블 데이터 리스트
 function dataList(pageNum, data, totalElements, size) {
-    $('#table_body').empty();
+    $('#table-body').empty();
     $.each(data, function (index, item) {
         const rowNumber = totalElements - (pageNum * size) - index;
 
         const tbody = `
-                    <tr class="table_body">
+                    <tr data-id="${item.id}">
                         <td>${rowNumber}</td>
                         <td>${item.type}</td>
                         <td>${item.title}</td>
@@ -78,7 +80,7 @@ function dataList(pageNum, data, totalElements, size) {
                         <td><span>${item.position.map(position => `<span class="circle">${position}</span>`).join(' ')}</span></td>
                     </tr>
                 `;
-        $('#table_body').append(tbody);
+        $('#table-body').append(tbody);
     });
 
     // 상세페이지 이동
@@ -89,12 +91,12 @@ function dataList(pageNum, data, totalElements, size) {
 }
 
 function showError() {
-    $('#table_body').empty();
-        const tbody = `
+    $('#table-body').empty();
+    const tbody = `
                 <tr class="no-data">
                    <td colspan="5">조회 데이터가 없습니다.</td>
                 </tr>`;
-    $('#table_body').append(tbody);
+    $('#table-body').append(tbody);
 }
 
 // 페이지네이션
