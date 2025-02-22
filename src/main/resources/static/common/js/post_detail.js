@@ -31,6 +31,7 @@ $(document).ready(function () {
         }
     });
 
+
     //댓글 등록
     $(".btn").click(function () {
         const comment = $(".post-answer").val().trim();
@@ -87,7 +88,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: `/api/answers/${commentId}`, // 댓글 수정 API 엔드포인트
+            url: `/api/answers/${commentId}`,
             method: "patch",
             contentType: "application/json",
             data: JSON.stringify({comment: newComment}),
@@ -121,5 +122,30 @@ $(document).ready(function () {
             <button class="modify-btn">수정</button>
             <button class="delete-btn">삭제</button>
         </span>`);
+    });
+
+    //댓글 삭제
+    $(document).on("click", ".delete-btn", function () {
+        let $li = $(this).closest("li");
+        let answerId = $li.data("id");
+        if (!confirm("삭제하시겠습니까?"))
+            return;
+
+        $.ajax({
+            url: `/api/answers/${answerId}`,
+            method: "delete",
+            success: function (response) {
+                console.log(response);
+                $li.remove();
+
+                alert("댓글이 삭제되었습니다.")
+            },
+            error: function (xhr, status, error) {
+                console.error("댓글 삭제", error);
+                console.error("서버 응답:", xhr.responseText);
+
+                alert("댓글을 삭제할 수 없습니다. 다시 시도해주세요.");
+            }
+        });
     });
 });
