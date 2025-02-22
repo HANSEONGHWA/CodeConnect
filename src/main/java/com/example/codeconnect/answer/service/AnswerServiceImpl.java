@@ -54,4 +54,18 @@ public class AnswerServiceImpl implements AnswerService {
         Answer saveAnswer = answerRepository.save(updateAnswer);
         return AnswerResponse.fromEntity(saveAnswer);
     }
+
+    /**
+     * 댓글 삭제
+     * answerId가 존재하는지 확인 후 존재하지 않는 경우 DataNotFoundException 발생.
+     *  answerId 삭제
+     * @param answerId
+     */
+    @Override
+    public void deleteAnswer(Long answerId) {
+        Answer answer = answerRepository.findById(answerId).orElseThrow(() -> new DataNotFoundException("해당 댓글이 존재하지 않습니다."));
+        answerRepository.delete(answer);
+    }
+
+
 }

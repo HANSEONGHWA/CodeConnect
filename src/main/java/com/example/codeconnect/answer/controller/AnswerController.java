@@ -42,4 +42,15 @@ public class AnswerController {
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    /**
+     * 댓글 삭제 기능
+     * @param answerId
+     * @return
+     */
+    @DeleteMapping("/api/answers/{answerId}")
+    public ResponseEntity deleteAnswer(@PathVariable("answerId") Long answerId){
+        answerService.deleteAnswer(answerId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
